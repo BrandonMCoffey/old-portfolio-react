@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Project from './Project';
 import Filter from './Filter';
+import ProjectWindow from './ProjectWindow';
 
 function App() {
   const [projects, setProjects] = useState([]);
+  const [activeProject, setActiveProject] = useState(null);
   const [filtered, setFiltered] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
 
@@ -26,6 +28,13 @@ function App() {
     });
   }
 
+  const openProject = (id) => {
+    setActiveProject(projects.find((project) => project.id === id));
+  }
+  const closeProject = () => {
+    setActiveProject(null);
+  }
+
   return (
     <div className="App">
       <Filter
@@ -38,10 +47,11 @@ function App() {
       <motion.div layout className="projects">
         <AnimatePresence>
         {filtered.map(project => {
-          return <Project key={project.id} project={project} />;
+          return <Project key={project.id} project={project} openProject={openProject} />;
         })}
         </AnimatePresence>
       </motion.div>
+      { activeProject === null ? null : <ProjectWindow activeProject={activeProject} closeMenu={closeProject} /> }
     </div>
   );
 }

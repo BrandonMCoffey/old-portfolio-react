@@ -1,6 +1,6 @@
 import {motion} from 'framer-motion';
 
-function Project({ project }) {
+function Project({ project, openProject}) {
     return (
         <motion.div
                 layout        
@@ -8,7 +8,7 @@ function Project({ project }) {
                 initial={{opacity:0}}
                 exit={{opacity:0}}
             >
-                <div className="project-box">
+                <button className="project-box" onClick={() => openProject(project.id)}>
                     <div className="project-large">
                         <img className="project-image" src={"Projects/" + project.img} alt="" />
                     </div>
@@ -19,7 +19,7 @@ function Project({ project }) {
                         <img className="project-icon" src={"Software/" + project.software[1] + ".png"} alt="" />
                         <img className="project-icon" src={"Software/" + project.software[0] + ".png"} alt="" />
                     </div>
-                </div>
+                </button>
         </motion.div>
     )
 }
